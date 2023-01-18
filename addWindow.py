@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QPushButton, QMenuBar, QStatusBar, QLineEdit, QApplication, QGridLayout
 from PyQt5 import QtWidgets
 from PyQt5 import uic
+import sqlite3
 import sys
 
 class AddWindowUI(QMainWindow):
@@ -30,9 +31,11 @@ class AddWindowUI(QMainWindow):
 
         #show the app
         self.show()
-        self.count = 1
+        self.sqlTableRow = 1
 
-    def addDataToDB(self):
+    #get the data from add window
+    def getDataFromForm(self):
+        # Stores the data from fields in add window
         firstName = self.first_Name_Line_Edit_AddWindow.text()
         lastName = self.last_Name_Line_Edit_AddWindow.text()
         address = self.address_Line_Edit_AddWindow.text()
@@ -41,24 +44,34 @@ class AddWindowUI(QMainWindow):
         jobTitle = self.job_Title_Line_Edit_AddWindow.text()
         salary= self.salary_Line_Edit_AddWindow.text()
 
-        #print(self.getTreeWidgetFromMain)
+        items = (firstName,lastName,address,email,phoneNo,jobTitle,salary)  # store the data as a tuple
 
-        items = (firstName,lastName,address,email,phoneNo,jobTitle,salary)
-        self.getTreeWidgetFromMain.setRowCount(self.count)
-        
-        for i in range (len(items)):
-            self.getTreeWidgetFromMain.setItem(self.count-1,i, QtWidgets.QTableWidgetItem(items[i]))
-        
-        self.count += 1
         # print(firstName)
+
+        return items
+
+
+    # Add Data to the database
+    def addDataToDB(self):
+        #print(self.getTreeWidgetFromMain)
+        dataBaseConnection = sqlite3.connect('employee.db') 
+        cursor = dataBaseConnection.cursor()
+
+        items = [self.getDataFromForm()]
+        sqlQuery = "INSERT INTO Employee VALUES(?, ?, ?, ?, ?, ?, ?)"
+        cursor.executemany(sqlQuery, items)
+        dataBaseConnection.commit()
+        dataBaseConnection.close()
+
+        # self.getTreeWidgetFromMain.setRowCount(self.sqlTableRow)    #every time data is added it sets the row in the table
+        
+        # for sqlTableColumn in range (len(items)):
+        #     self.getTreeWidgetFromMain.setItem(self.sqlTableRow-1, sqlTableColumn+1, QtWidgets.QTableWidgetItem(items[sqlTableColumn]))   # display the data on the table
+        
+        # self.sqlTableRow += 1   # increments the row by 1 so the data can be displayed
 
     def closeAddWindow(self):
         self.close()
-
-
-    # def clicker(self):
-    #     self.label.setText(f"Hello There {self.textedit.toPlainText()}")
-    #     self.textedit.setPlainText("")
 
 
 if __name__ == "__main__":
