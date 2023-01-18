@@ -46,6 +46,15 @@ class AddWindowUI(QMainWindow):
 
         items = (firstName,lastName,address,email,phoneNo,jobTitle,salary)  # store the data as a tuple
 
+        #set the fields back to empty
+        self.first_Name_Line_Edit_AddWindow.setText("")
+        self.last_Name_Line_Edit_AddWindow.setText("")
+        self.address_Line_Edit_AddWindow.setText("")
+        self.email_Line_Edit_AddWindow.setText("")
+        self.phone_No_Line_Edit_AddWindow.setText("")
+        self.job_Title_Line_Edit_AddWindow.setText("")
+        self.salary_Line_Edit_AddWindow.setText("")
+
         # print(firstName)
 
         return items

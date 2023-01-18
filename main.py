@@ -24,6 +24,7 @@ class MainWindowUI(QMainWindow):
         #calls the function when the respective buttons are clicked
         self.addButtonMainWindow.clicked.connect(self.openAddWindow)
         self.editButtonMainWindow.clicked.connect(self.openEditWindow)
+        self.deleteButtonMainWindow.clicked.connect(self.deleteItemFromDB)
         self.refreshButtonMainWindow.clicked.connect(self.loadDataBase)
         # self.clearScreenbutton.clicked.connect(self.clearScreen)
 
@@ -56,20 +57,48 @@ class MainWindowUI(QMainWindow):
                           salary  TEXT
                         )""")
 
-        sqlQuery = "SELECT * FROM Employee"
+        sqlQuery = "SELECT rowid,* FROM Employee"
         tableRow = 0
 
         for record in cursor.execute(sqlQuery):
             self.displayQueryTable.setRowCount(tableRow+1)
             # print(record)
+
             for column in range (len(record)):
-                self.displayQueryTable.setItem(tableRow, column+1, QtWidgets.QTableWidgetItem(record[column]))
+                # print(column, record[column])
+
+                #column zero have rowId which is unique and act as a primary key. rowID is int so need to cast it to str to display
+                if(column == 0):
+                    self.displayQueryTable.setItem(tableRow, column, QtWidgets.QTableWidgetItem(str(record[column])))    
+                else:
+                    self.displayQueryTable.setItem(tableRow, column, QtWidgets.QTableWidgetItem(record[column]))
             tableRow += 1
         
-        # Commit our command
+        # Commit any changes
         dataBaseConnection.commit()
 	    # close the database
         dataBaseConnection.close()
+
+    def runSqlQueries(self, sqlQuery):
+        dataBaseConnection = sqlite3.connect('employee.db') #connect to already created database
+        cursor = dataBaseConnection.cursor()
+        cursor.execute(sqlQuery)
+        # Commit any changes
+        dataBaseConnection.commit()
+	    # close the database
+        dataBaseConnection.close()
+
+    def deleteItemFromDB(self):
+        #Grab the selected record or current row on the screen using mouse pointer
+        selectedRow = self.displayQueryTable.currentRow()
+
+        #delete selected record from the screen
+        for column in range (8):
+            self.displayQueryTable.takeItem(selectedRow,column)
+
+        #delete selected record from database have to press refresh afterwards
+        query = f"DELETE FROM Employee WHERE rowid={selectedRow}"
+        self.runSqlQueries(query)
 
 
 if __name__ == "__main__":
