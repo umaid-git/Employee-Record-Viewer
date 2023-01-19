@@ -4,11 +4,14 @@
 A GUI application which adds, delete, edit and search data from a SQL Table.
 
 
+
 ## Tech Stack
 
 **Programming language and framework:** Python, PyQt5, SQLite
 
 **GUI:** PyQt5 designer
+
+
 
 ## Deployment
 
