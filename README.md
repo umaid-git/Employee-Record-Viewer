@@ -36,6 +36,7 @@ lastly to run the application enter:
 ## Demo
 
 Adding data into database
+
 ![](https://github.com/umaid-git/Pyqt5-Demo/blob/main/gif/add-gif.gif)
 
 Deleting a record from database
