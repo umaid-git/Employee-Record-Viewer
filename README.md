@@ -27,8 +27,6 @@ lastly to run the application enter:
 
 ## Demo
 
-Insert gif or link to demo
-
 Adding data into database
 ![](https://github.com/umaid-git/Pyqt5-Demo/blob/main/gif/add-gif.gif)
 
