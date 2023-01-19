@@ -2,20 +2,20 @@
 # PyQt5-Demo
 
 A GUI application which adds, delete, edit and search data from a SQL Table.
-
-
-
+  
+  
+  
 ## Tech Stack
 
 **Programming language and framework:** Python, PyQt5, SQLite
 
 **GUI:** PyQt5 designer
-
-
+  
+  
 
 ## Deployment
 
-To deploy this project: open vscode or any other IDE which supports python, open the terminal and go to directory where the repo is cloned. Run:
+To deploy this project: open vscode or any other IDE (make sure python is installed on your system), open the terminal and go to directory where the repo is cloned. Run:
 
 ```bash
   py -m venv env
