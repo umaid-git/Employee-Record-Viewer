@@ -24,7 +24,7 @@ class MainWindowUI(QMainWindow):
         #calls the function when the respective buttons are clicked
         self.addButtonMainWindow.clicked.connect(self.openAddWindow)
         self.editButtonMainWindow.clicked.connect(self.openEditWindow)
-        self.deleteButtonMainWindow.clicked.connect(self.deleteItemFromDB)
+        self.deleteButtonMainWindow.clicked.connect(self.deleteRecordFromDB)
         self.refreshButtonMainWindow.clicked.connect(self.loadDataBase)
         # self.clearScreenbutton.clicked.connect(self.clearScreen)
 
@@ -42,8 +42,15 @@ class MainWindowUI(QMainWindow):
     def openEditWindow(self):
         self.editWindow = QtWidgets.QMainWindow()
         self.editWindowUI = EditWindowUI()
+        self.editWindowUI.done_Button_editWindow.clicked.connect(self.editDatabase)
         # self.editWindow.show()
 
+    def editDatabase(self):
+        query = self.editWindowUI.getSqlQuery()
+        # print(record, " from main window")
+        self.runSqlQueries(query)
+
+    #Loads the data when the main window starts or refresh button is clicked
     def loadDataBase(self):
         dataBaseConnection = sqlite3.connect('employee.db') #create or connect to already created database
         cursor = dataBaseConnection.cursor()
@@ -73,7 +80,7 @@ class MainWindowUI(QMainWindow):
                 else:
                     self.displayQueryTable.setItem(tableRow, column, QtWidgets.QTableWidgetItem(record[column]))
             tableRow += 1
-        
+                
         # Commit any changes
         dataBaseConnection.commit()
 	    # close the database
@@ -83,12 +90,16 @@ class MainWindowUI(QMainWindow):
         dataBaseConnection = sqlite3.connect('employee.db') #connect to already created database
         cursor = dataBaseConnection.cursor()
         cursor.execute(sqlQuery)
+        print(sqlQuery)
+        
         # Commit any changes
         dataBaseConnection.commit()
 	    # close the database
         dataBaseConnection.close()
 
-    def deleteItemFromDB(self):
+
+    #Deltes the record from the database
+    def deleteRecordFromDB(self):
         #Grab the selected record or current row on the screen using mouse pointer
         selectedRow = self.displayQueryTable.currentRow()
 
