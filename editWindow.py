@@ -22,15 +22,18 @@ class EditWindowUI(QMainWindow):
         self.done_Button_editWindow = self.findChild(QPushButton, "donePushButton" )
         self.cancel_Button_editWindow = self.findChild(QPushButton, "cancelPushButton" )
 
+        #calls the function when the respective buttons are clicked
         self.cancel_Button_editWindow.clicked.connect(self.closeEditWindow)
         self.done_Button_editWindow.clicked.connect(self.getDataFromDataField)
 
         #show the app
         self.show()
 
+    # When cancel button is clicked it closes the window
     def closeEditWindow(self):
         self.close()
 
+    # Stores the data from data field
     def getDataFromDataField(self):
         employee_ID = self.employee_ID_Line_Edit_editWindow.text()
         firstName = self.first_Name_Line_Edit_editWindow.text()

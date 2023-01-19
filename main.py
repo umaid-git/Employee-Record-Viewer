@@ -47,37 +47,17 @@ class MainWindowUI(QMainWindow):
         self.editWindowUI.done_Button_editWindow.clicked.connect(self.editDatabase)
         # self.editWindow.show()
 
+    # Open the find windowd after clicking the find button
     def openFindWindow(self):
         self.findWindow = QtWidgets.QMainWindow()
         self.findWindowUI = FindWindowUI()
-        self.findWindowUI.setTreeWidget(self.displayQueryTable)
+        self.findWindowUI.setTreeWidget(self.displayQueryTable)    
 
-    def displayFindWindowResult(self):
-        resultFromQuery = self.findWindowUI.getDataFromDataField()
-        # print(resultFromQuery, "from openFindWindow")
-
-        tableRow = 0
-        for record in resultFromQuery:
-            self.displayQueryTable.setRowCount(tableRow+1)
-            # print(record)
-
-            for column in range (len(record)):
-                # print(column, record[column])
-
-                #column zero have rowId which is unique and act as a primary key. rowID is int so need to cast it to str to display
-                if(column == 0):
-                    self.displayQueryTable.setItem(tableRow, column, QtWidgets.QTableWidgetItem(str(record[column])))    
-                else:
-                    self.displayQueryTable.setItem(tableRow, column, QtWidgets.QTableWidgetItem(record[column]))
-            tableRow += 1
-
-
-        
-
+    #edit the database based on the sql query received
     def editDatabase(self):
-        query = self.editWindowUI.getSqlQuery()
+        query = self.editWindowUI.getSqlQuery() # get the sql query based on the data from edit window
         # print(record, " from main window")
-        self.runSqlQueries(query)
+        self.runSqlQueries(query)   # run the sql query
 
     #Loads the data when the main window starts or refresh button is clicked
     def loadDataBase(self):
@@ -134,7 +114,7 @@ class MainWindowUI(QMainWindow):
         selectedRow = self.displayQueryTable.currentRow()
         cell_val = self.displayQueryTable.item(selectedRow,0).text()
 
-        print(cell_val)
+        # print(cell_val)
 
         #delete selected record from the screen
         for column in range (8):
