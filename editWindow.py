@@ -55,7 +55,8 @@ class EditWindowUI(QMainWindow):
 
         # return items
 
-    # generate the sql query to edit the data 
+    # generate the sql query for the field that is filled in the edit window
+    # If the field is empty it means it doens't need to be updated. 
     def getSqlQuery(self):
         dataBaseConnection = sqlite3.connect('employee.db') #create or connect to already created database
         cursor = dataBaseConnection.cursor()

@@ -121,7 +121,7 @@
      <string>Edit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="queryPushButton">
+   <widget class="QPushButton" name="findPushButton">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -136,7 +136,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Query</string>
+     <string>Find</string>
     </property>
    </widget>
    <widget class="QPushButton" name="refreshPushButton">
