@@ -4,6 +4,11 @@
 A GUI application which adds, delete, edit and search data from a SQL Table.
 
 
+## Tech Stack
+
+**Programming language and framework:** Python, PyQt5, SQLite
+
+**GUI:** PyQt5 designer
 
 ## Deployment
 
@@ -50,15 +55,4 @@ Searching for employees whose salary are less than a certain value
 Searching for employees whose salary is greator a certain value
 ![](https://github.com/umaid-git/Pyqt5-Demo/blob/main/gif/salary-greater-than.gif)
 
-
-
-
-
-
-
-## Tech Stack
-
-**Programming language and framework:** Python, PyQt5
-
-**GUI:** PyQt5 designer
 
