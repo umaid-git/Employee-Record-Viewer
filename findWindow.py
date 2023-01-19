@@ -114,8 +114,8 @@ class FindWindowUI(QMainWindow):
                     print(records)
                     self.displaySalaryResult(records)
             print("==================================================")
-
-        self.displayFindResult(resultFromQuery)
+        else:
+            self.displayFindResult(resultFromQuery)
  
         # print(resultFromQuery)
         # return resultFromQuery
