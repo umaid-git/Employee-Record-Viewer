@@ -67,16 +67,20 @@ class EditWindowUI(QMainWindow):
         cursor.execute("PRAGMA table_info(Employee)")
         attributeNameTuple = cursor.fetchall()
 
-        query = "UPDATE Employee SET "
+        # if employee ID field is empty then do just print the whole table
+        if(self.items[0] != ''):
+            query = "UPDATE Employee SET "
 
-        for column in range (len(attributeNameTuple)):
-            # print(attributeNameTuple[attributeName][1], "from edit window")
+            for column in range (len(attributeNameTuple)):
+                # print(attributeNameTuple[attributeName][1], "from edit window")
 
-            #column+1 because the first tuple contains employee Id
-            if self.items[column+1] != "":
-                query += f"{attributeNameTuple[column][1]} = '{self.items[column+1]}' , "
+                #column+1 because the first tuple contains employee Id
+                if self.items[column+1] != "":
+                    query += f"{attributeNameTuple[column][1]} = '{self.items[column+1]}' , "
 
-        query = query[:-2] + f"WHERE rowid = {self.items[0]}"   #adds employeeID to the query string
+            query = query[:-2] + f"WHERE rowid = {self.items[0]}"   #adds employeeID to the query string
+        else:
+            query = "SELECT * FROM Employee"
         # print (query)
         return query
 
