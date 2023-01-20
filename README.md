@@ -1,5 +1,5 @@
 
-# PyQt5-Demo
+# Employee Record Viewer
 
 A GUI application which adds, delete, edit and search data from a SQL Table.
   
